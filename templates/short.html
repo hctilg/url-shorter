@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>UrlShorter</title>
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static', filename='styles/style.css') }}">
+      <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+      <noscript>
+        <style>
+          #link_box *:not([type="url"]),
+          #copy{display: none;}
+        </style>
+      </noscript>
+  </head>
+  <body translate="no">
+    <header id="header">
+      <a href="/" class="link" title="Create a New Link">New Link</a>
+    </header>
+    <section id="link_box">
+      <input type="url" name="url" id="link" value="{{data.short_url}}" spellcheck="false" readonly required />
+      <button class="btn" id="copy">
+        <svg width="24px" height="24px" style="fill: none !important;" viewBox="0 0 24 24" fill="none"><path d="M16 12.9V17.1C16 20.6 14.6 22 11.1 22H6.9C3.4 22 2 20.6 2 17.1V12.9C2 9.4 3.4 8 6.9 8H11.1C14.6 8 16 9.4 16 12.9Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 6.9V11.1C22 14.6 20.6 16 17.1 16H16V12.9C16 9.4 14.6 8 11.1 8H8V6.9C8 3.4 9.4 2 12.9 2H17.1C20.6 2 22 3.4 22 6.9Z" stroke="#292D32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+    </section>
+    <a href="{{data.short_url}}" class="open-link link" target="_blank" rel="link" title="open link">open Link</a>
+    <script type="text/javascript" charset="utf-8">
+      const link_box = document.querySelector('#link_box');
+      const btn = document.querySelector('#copy');
+      const link = document.querySelector('#link');
+      const copyToClipboard = text => navigator.clipboard.writeText(text);
+      btn.addEventListener('click', () => {
+        link.select();
+        copyToClipboard(link.value);
+        link_box.classList.add("active");
+        setTimeout(() => link_box.classList.remove("active"), 2800);
+      });
+    </script>
+  </body>
+</html>
